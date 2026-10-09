@@ -1,0 +1,37 @@
+{
+  "name": "VianaDev",
+  "title": "Desenvolvedor Júnior",
+  "bio": "Dev júnior aprendendo e construindo projetos todos os dias.",
+  "github": "",
+  "linkedin": "",
+  "email": "miguelviana776@gmail.com",
+  "skills": [
+    {
+      "g": "Front-end",
+      "items": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ]
+    },
+    {
+      "g": "Back-end",
+      "items": [
+        "Python",
+        "Java"
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "title": "Ac Ar Condicionado",
+      "desc": "",
+      "url": "https://acarcondicionado.netlify.app/",
+      "tags": [
+        "HTML",
+        "CSS",
+        "JAVASCRIPT"
+      ]
+    }
+  ]
+}

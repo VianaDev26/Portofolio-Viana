@@ -1,0 +1,19 @@
+{# BASE: o esqueleto que todas as páginas reaproveitam #}
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}Portfólio{% endblock %}</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+{# Tela onde as fagulhas são desenhadas (static/sparks.js) #}
+<canvas id="fx"></canvas>
+{# Mensagens rápidas, ex: "Salvo!" #}
+{% for m in get_flashed_messages() %}<div class="flash">{{ m }}</div>{% endfor %}
+{# Aqui entra o conteúdo de cada página #}
+{% block body %}{% endblock %}
+<script src="{{ url_for('static', filename='sparks.js') }}"></script>
+</body>
+</html>

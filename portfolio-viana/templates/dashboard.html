@@ -1,0 +1,68 @@
+{# DASHBOARD: painel onde você edita o site. Cada <form> envia para uma rota do app.py #}
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{# hid() = campo escondido de segurança, repetido em todo formulário #}
+{% macro hid() %}<input type="hidden" name="csrf" value="{{ csrf }}">{% endmacro %}
+{% block body %}
+<div class="wrap dash">
+  <div class="row"><h1 style="font-size:2.2rem;margin:0">Dashboard</h1><span class="sp"></span>
+    <a class="btn" href="{{ url_for('index') }}" target="_blank">Ver site</a>
+    <form method="post" action="{{ url_for('logout') }}">{{ hid() }}<button>Sair</button></form></div>
+
+  {# ===== PERFIL: nome, cargo, sobre e links ===== #}
+  <form class="panel" method="post" action="{{ url_for('perfil') }}">{{ hid() }}
+    <h2>Perfil</h2>
+    <div class="two">
+      <div><label>Nome</label><input name="name" value="{{ d.name }}"></div>
+      <div><label>Cargo</label><input name="title" value="{{ d.title }}"></div>
+    </div>
+    <label>Sobre você</label><textarea name="bio" rows="3">{{ d.bio }}</textarea>
+    <div class="two">
+      <div><label>GitHub (https://...)</label><input name="github" value="{{ d.github }}"></div>
+      <div><label>LinkedIn (https://...)</label><input name="linkedin" value="{{ d.linkedin }}"></div>
+    </div>
+    <label>E-mail</label><input name="email" value="{{ d.email }}">
+    <div style="margin-top:16px"><button class="p">Salvar perfil</button></div>
+  </form>
+
+  {# ===== LINGUAGENS: grupos e tecnologias (adicionar / remover) ===== #}
+  <div class="panel"><h2>Linguagens e especialidades</h2>
+    {% for g in d.skills %}
+    {% set gi = loop.index0 %}
+    <div class="grp"><div><div class="gl">{{ g.g }}</div>
+      <form method="post" action="{{ url_for('grupo_del') }}">{{ hid() }}<input type="hidden" name="g" value="{{ gi }}"><button style="margin-top:6px;padding:3px 10px;font-size:.8rem">Remover grupo</button></form></div>
+      <div>
+        <div class="tags">{% for t in g["items"] %}
+          <span class="tag" style="--h:{{ t|hue }}">{{ t }}
+            <form method="post" action="{{ url_for('skill_del') }}">{{ hid() }}<input type="hidden" name="g" value="{{ gi }}"><input type="hidden" name="i" value="{{ loop.index0 }}"><button title="Remover">✕</button></form>
+          </span>{% endfor %}</div>
+        <form class="inline" method="post" action="{{ url_for('skill_add') }}">{{ hid() }}<input type="hidden" name="g" value="{{ gi }}">
+          <input name="skill" placeholder="Nova tecnologia em {{ g.g }}" required><button>Adicionar</button></form>
+      </div></div>
+    {% endfor %}
+    <form class="inline" method="post" action="{{ url_for('skill_add') }}" style="margin-top:16px">{{ hid() }}
+      <input name="group" placeholder="Novo grupo (ex: Banco de dados)" required><input name="skill" placeholder="Primeira tecnologia" required><button class="p">Criar grupo</button></form>
+  </div>
+
+  {# ===== PROJETOS: editar os existentes e adicionar um novo ===== #}
+  <div class="panel"><h2>Projetos</h2>
+    {% for p in d.projects %}
+    <form class="proj" method="post" action="{{ url_for('projeto_save') }}">{{ hid() }}<input type="hidden" name="i" value="{{ loop.index0 }}">
+      <label>Título</label><input name="title" value="{{ p.title }}">
+      <label>Descrição</label><textarea name="desc" rows="2">{{ p.desc }}</textarea>
+      <div class="two"><div><label>Link (https://...)</label><input name="url" value="{{ p.url }}"></div>
+      <div><label>Tecnologias (separe por vírgula)</label><input name="tags" value="{{ p.tags|join(', ') }}"></div></div>
+      <div class="row" style="margin-top:12px"><button class="p">Salvar</button>
+        <button formaction="{{ url_for('projeto_del') }}" onclick="return confirm('Remover este projeto?')">Remover</button></div>
+    </form>{% endfor %}
+    <form class="proj" method="post" action="{{ url_for('projeto_save') }}">{{ hid() }}<input type="hidden" name="i" value="new">
+      <div class="gl">+ Novo projeto</div>
+      <label>Título</label><input name="title" required>
+      <label>Descrição</label><textarea name="desc" rows="2"></textarea>
+      <div class="two"><div><label>Link (https://...)</label><input name="url"></div>
+      <div><label>Tecnologias (separe por vírgula)</label><input name="tags"></div></div>
+      <div style="margin-top:12px"><button class="p">Adicionar projeto</button></div>
+    </form>
+  </div>
+</div>
+{% endblock %}

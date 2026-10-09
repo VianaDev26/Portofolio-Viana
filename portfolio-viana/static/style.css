@@ -1,0 +1,54 @@
+/* ESTILO DO SITE (cores, tamanhos, animações). Só azul e branco. */
+/* CORES: mude aqui para trocar o visual do site inteiro */
+:root{--bg:#f5f9ff;--card:#fff;--tx:#0a1b3d;--mu:#5b6f94;--bd:#d9e5fa;--c1:#1e5bff;--c2:#4aa3ff;--c3:#0a2a8a;--c4:#8cc8ff;color-scheme:light dark}
+/* Cores do modo escuro (quando o celular/PC está no modo escuro) */
+@media (prefers-color-scheme:dark){:root{--bg:#050b1f;--card:#0b1633;--tx:#fff;--mu:#9db4e0;--bd:#16285a;--c1:#2f6bff;--c3:#fff}}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(600px 400px at 0 0,color-mix(in srgb,var(--c1) 22%,transparent),transparent),radial-gradient(500px 400px at 100% 40%,color-mix(in srgb,var(--c2) 18%,transparent),transparent),var(--bg);background-attachment:fixed;color:var(--tx);font:16px/1.65 system-ui,-apple-system,"Segoe UI",sans-serif}
+/* Tela das fagulhas, fica atrás do conteúdo */
+#fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:1}
+.wrap{max-width:960px;margin:0 auto;padding:0 24px;position:relative;z-index:2}
+nav{position:sticky;top:0;z-index:10;backdrop-filter:blur(14px);background:color-mix(in srgb,var(--bg) 75%,transparent);border-bottom:1px solid var(--bd)}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:12px 0;gap:12px}
+.nav a{color:var(--mu);text-decoration:none;margin-left:20px;font-size:.92rem}.nav a:hover{color:var(--c2)}
+.logo{font:600 .95rem ui-monospace,Menlo,monospace}.logo b{color:var(--c2)}
+.hero{padding:90px 0 30px}
+/* Nome grande com gradiente azul animado */
+h1{font-size:clamp(2.6rem,9vw,5rem);line-height:1.02;letter-spacing:-.04em;margin:0 0 10px;background:linear-gradient(90deg,var(--c1),var(--c2),var(--c3),var(--c4),var(--c1));background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:gs 8s linear infinite}
+@keyframes gs{to{background-position:300% 0}}
+.sub{font-size:1.35rem;font-weight:600;margin:0 0 14px}.bio{max-width:620px;color:var(--mu);margin:0}
+section{padding-top:60px}
+h2{font-size:.8rem;text-transform:uppercase;letter-spacing:.2em;color:var(--mu);margin:0 0 24px;display:flex;align-items:center;gap:14px}
+h2:before{content:"";width:28px;height:3px;border-radius:3px;background:linear-gradient(90deg,var(--c1),var(--c2))}h2:after{content:"";flex:1;height:1px;background:var(--bd)}
+.btn,.links a,button{font:inherit;font-size:.92rem;font-weight:600;cursor:pointer;text-decoration:none;color:var(--tx);background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:8px 16px;transition:.2s;display:inline-block}
+.btn:hover,.links a:hover,button:hover{border-color:var(--c2);transform:translateY(-2px);box-shadow:0 8px 22px -8px var(--c2)}
+.p{border:0;color:#fff;background:linear-gradient(90deg,var(--c1),var(--c2))}
+.links{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+.grp{display:grid;grid-template-columns:150px 1fr;gap:12px 24px;padding:16px 0;border-bottom:1px solid var(--bd)}.gl{font-weight:700}
+.tags{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.tag{--h:215;font:500 .85rem ui-monospace,Menlo,monospace;background:hsl(var(--h) 90% 60%/.14);color:hsl(var(--h) 85% 50%);border:1px solid hsl(var(--h) 90% 60%/.3);border-radius:9px;padding:4px 12px;display:inline-flex;align-items:center;gap:4px}
+@media (prefers-color-scheme:dark){.tag{color:hsl(var(--h) 90% 72%)}}
+.tag form{display:inline;margin:0}.tag button{border:0;background:none;padding:0 0 0 4px;color:inherit;box-shadow:none;transform:none;border-radius:0}
+/* Cartões de projeto lado a lado */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
+.card{position:relative;background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:24px;display:flex;flex-direction:column;gap:10px;overflow:hidden;transition:.2s}
+.card:hover{transform:translateY(-5px);border-color:var(--c2)}
+.card:after{content:"";position:absolute;left:0;top:0;height:3px;width:100%;background:linear-gradient(90deg,var(--c1),var(--c2),var(--c4))}
+.card h3{margin:0;font-size:1.2rem}.card p{margin:0;color:var(--mu);flex:1}.card a{color:var(--c2);font-weight:600;text-decoration:none}
+footer{padding:40px 0 30px;color:var(--mu);font-size:.85rem}
+/* Telas de login e criar acesso (caixa no meio) */
+.center{min-height:100vh;display:grid;place-items:center;padding:24px;position:relative;z-index:2}
+.box{width:100%;max-width:400px}.box h1{font-size:2.2rem}
+label{display:block;font-size:.85rem;color:var(--mu);margin:12px 0 4px}
+input,textarea{width:100%;font:inherit;color:var(--tx);background:var(--bg);border:1px solid var(--bd);border-radius:10px;padding:9px 12px;outline:none}
+input:focus,textarea:focus{border-color:var(--c2)}
+.flash{position:relative;z-index:5;max-width:912px;margin:12px auto 0;padding:10px 16px;border-radius:10px;background:var(--card);border:1px solid var(--c2);font-size:.92rem}
+/* Dashboard */
+.dash{padding:28px 0 80px}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.sp{flex:1}
+.panel{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:22px;margin-top:20px}
+.panel h2{margin-top:0}.two{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}
+.proj{border-top:1px solid var(--bd);padding-top:14px;margin-top:14px}
+.inline{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}.inline input{flex:1;min-width:140px}
+/* Ajustes para celular */
+@media(max-width:640px){.grp,.two{grid-template-columns:1fr}.hero{padding-top:56px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}

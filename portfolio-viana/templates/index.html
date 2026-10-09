@@ -1,0 +1,41 @@
+{# PÁGINA PÚBLICA: o que os visitantes veem. {{ d.name }} = valor vindo do app.py #}
+{% extends "base.html" %}
+{% block title %}{{ d.name }} | Portfólio{% endblock %}
+{% block body %}
+<nav><div class="wrap nav">
+  {# Logo no formato <SeuNome/> #}
+  <span class="logo"><b>&lt;</b>{{ d.name }}<b>/&gt;</b></span>
+  <div><a href="#skills">Especialidades</a><a href="#projects">Projetos</a><a href="{{ url_for('login') }}">Entrar</a></div>
+</div></nav>
+<main class="wrap">
+  {# Topo: nome, cargo, sobre e links #}
+  <header class="hero">
+    <h1>{{ d.name }}</h1>
+    <p class="sub">{{ d.title }}</p>
+    <p class="bio">{{ d.bio }}</p>
+    <div class="links">
+      {% if d.github %}<a href="{{ d.github }}" target="_blank" rel="noopener">GitHub</a>{% endif %}
+      {% if d.linkedin %}<a href="{{ d.linkedin }}" target="_blank" rel="noopener">LinkedIn</a>{% endif %}
+      {% if d.email %}<a href="mailto:{{ d.email }}">E-mail</a>{% endif %}
+    </div>
+  </header>
+  {# Linguagens: um bloco por grupo, uma etiqueta por tecnologia #}
+  <section id="skills"><h2>Especialidades</h2>
+    {% for g in d.skills %}
+    <div class="grp"><div class="gl">{{ g.g }}</div>
+      <div class="tags">{% for t in g["items"] %}<span class="tag" style="--h:{{ t|hue }}">{{ t }}</span>{% endfor %}</div></div>
+    {% endfor %}
+  </section>
+  {# Projetos: um cartão por projeto #}
+  <section id="projects"><h2>Projetos</h2>
+    {% if d.projects %}<div class="grid">
+      {% for p in d.projects %}
+      <div class="card"><h3>{{ p.title }}</h3><p>{{ p.desc }}</p>
+        <div class="tags">{% for t in p.tags %}<span class="tag" style="--h:{{ t|hue }}">{{ t }}</span>{% endfor %}</div>
+        {% if p.url %}<a href="{{ p.url }}" target="_blank" rel="noopener">Ver projeto →</a>{% endif %}
+      </div>{% endfor %}
+    </div>{% else %}<p class="bio">Projetos em breve.</p>{% endif %}
+  </section>
+  <footer>© {{ d.name }}</footer>
+</main>
+{% endblock %}
